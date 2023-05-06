@@ -75,6 +75,7 @@ JAZZMIN_SETTINGS = {
     "site_title": "Profmaket",
     "site_header": "Profmaket",
     "site_brand": "Profmaket",
+    "welcome_sign": "Войти в админ панель",
     "show_sidebar": True,
     "navigation_expanded": True,
 }
