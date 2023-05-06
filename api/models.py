@@ -17,8 +17,8 @@ class Work(models.Model):
 
 
 class Image(models.Model):
-    title = models.CharField("наименование", max_length=255)
-    work = models.ForeignKey('Work', on_delete=models.CASCADE, null=True)
+    title = models.CharField("Наименование", max_length=255)
+    work = models.ForeignKey(Work, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Работа')
 
     def __str__(self):
         return self.title
@@ -26,6 +26,7 @@ class Image(models.Model):
     class Meta:
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображения'
+
 
 class Address(models.Model):
     address = models.CharField('Адрес компании', max_length=255)

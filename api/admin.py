@@ -9,6 +9,6 @@ admin.site.register(Email)
 admin.site.register(Telephone_number)
 admin.site.register(Application)
 
-admin.site.site_title = 'Profmaket'
-admin.site.site_header = 'Profmaket'
-admin.site.index_title = 'Администрирование сайта'
+# admin.site.site_title = 'Profmaket'
+# admin.site.site_header = 'Profmaket'
+# admin.site.index_title = 'Администрирование сайта'

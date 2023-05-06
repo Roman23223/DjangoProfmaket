@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'DjangoProfmaket.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +69,16 @@ TEMPLATES = [
         },
     },
 ]
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Profmaket",
+    "site_header": "Profmaket",
+    "site_brand": "Profmaket",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+}
+
 
 WSGI_APPLICATION = 'DjangoProfmaket.wsgi.application'
 
