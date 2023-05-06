@@ -80,6 +80,11 @@ JAZZMIN_SETTINGS = {
 }
 
 
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly",
+}
+
+
 WSGI_APPLICATION = 'DjangoProfmaket.wsgi.application'
 
 
