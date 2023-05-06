@@ -1,6 +1,6 @@
-import os
-
 from django.db import models
+from django.template.defaultfilters import truncatechars
+from django.utils.safestring import mark_safe
 
 
 class Work(models.Model):
@@ -22,6 +22,13 @@ class Image(models.Model):
     title = models.CharField("Наименование", max_length=255)
     image = models.ImageField("Ссылка на изображение", upload_to='images', null=True)
     work = models.ForeignKey(Work, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Работа')
+
+    def short_description(self):
+        return truncatechars(self.description, 20)
+
+    def img_preview(self):  # new
+        return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
+    img_preview.short_description = 'Изображение'
 
     def __str__(self):
         return self.title
