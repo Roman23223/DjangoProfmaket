@@ -39,4 +39,4 @@ class TelephoneList(generics.ListAPIView):
 class ApplicationCreate(generics.CreateAPIView):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializers
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+

@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 
 
@@ -18,6 +20,7 @@ class Work(models.Model):
 
 class Image(models.Model):
     title = models.CharField("Наименование", max_length=255)
+    image = models.ImageField("Ссылка на изображение", upload_to='images', null=True)
     work = models.ForeignKey(Work, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Работа')
 
     def __str__(self):
