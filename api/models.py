@@ -68,7 +68,7 @@ class Application(models.Model):
     sender_name = models.CharField('Имя отправителя', max_length=20)
     number = models.CharField('Номер телефона', max_length=12)
     email = models.EmailField('Электронная почта', max_length=255)
-    comment = models.TextField('Коментарий', max_length=1000)
+    comment = models.TextField('Коментарий', max_length=1000, null=True, blank=True)
 
     def __str__(self):
         return self.email
