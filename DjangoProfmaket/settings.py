@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.apps.ApiConfig',
     'django_cleanup.apps.CleanupConfig',
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -51,7 +52,40 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1:9000",
+]
+
 
 ROOT_URLCONF = 'DjangoProfmaket.urls'
 
@@ -81,10 +115,20 @@ JAZZMIN_SETTINGS = {
     "navigation_expanded": True,
 }
 
-
 JAZZMIN_UI_TWEAKS = {
     "theme": "flatly",
 }
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'chepiga_roma@mail.ru'
+EMAIL_HOST_PASSWORD = 'pNLF1DVweG7ZavUEHMBf'
 
 
 WSGI_APPLICATION = 'DjangoProfmaket.wsgi.application'

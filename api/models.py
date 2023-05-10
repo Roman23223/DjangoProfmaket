@@ -1,6 +1,10 @@
 from django.db import models
 from django.template.defaultfilters import truncatechars
 from django.utils.safestring import mark_safe
+from django.conf import settings
+from django.core.mail import send_mail
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Work(models.Model):
@@ -75,7 +79,7 @@ class Email(models.Model):
 class Application(models.Model):
     size = models.CharField('Размер макета', max_length=255)
     product_time = models.CharField('Время изготовления', max_length=255)
-    sender_name = models.CharField('Имя отправителя', max_length=20)
+    sender_name = models.CharField('Имя заказчика', max_length=20)
     number = models.CharField('Номер телефона', max_length=12)
     email = models.EmailField('Электронная почта', max_length=255)
     comment = models.TextField('Коментарий', max_length=1000, null=True, blank=True)
@@ -86,3 +90,16 @@ class Application(models.Model):
     class Meta:
         verbose_name = 'Заказчик'
         verbose_name_plural = 'Заказчики'
+
+
+@receiver(post_save, sender=Application)
+def send(sender, instance, **kwargs):
+    if kwargs['created']:
+        message = f'Заказчик: {instance.sender_name}, Номер телефона: {instance.number}, Электронная почта: {instance.email}, Размер макета: {instance.size} , Время изготовления: {instance.product_time}, Коментарий: {instance.comment}'
+        send_mail(
+            "Заказ",
+            message,
+            settings.EMAIL_HOST_USER,
+            [instance.email],
+            fail_silently=False,
+        )
