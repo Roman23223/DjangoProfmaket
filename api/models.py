@@ -1,4 +1,5 @@
 from django.db import models
+from django.template import loader
 from django.template.defaultfilters import truncatechars
 from django.utils.safestring import mark_safe
 from django.conf import settings
@@ -25,7 +26,7 @@ class Work(models.Model):
 class Image(models.Model):
     title = models.CharField("Наименование", max_length=255)
     image = models.ImageField("Ссылка на изображение", upload_to='images', null=True)
-    work = models.ForeignKey(Work, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Работа')
+    work = models.ForeignKey(Work, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Работа', related_name='images')
 
     def short_description(self):
         return truncatechars(self.description, 20)
@@ -95,11 +96,23 @@ class Application(models.Model):
 @receiver(post_save, sender=Application)
 def send(sender, instance, **kwargs):
     if kwargs['created']:
-        message = f'Заказчик: {instance.sender_name}, Номер телефона: {instance.number}, Электронная почта: {instance.email}, Размер макета: {instance.size} , Время изготовления: {instance.product_time}, Коментарий: {instance.comment}'
+        html_messsage = loader.render_to_string(
+            'email_messages/html_message.html',
+            {
+                'sender_name': instance.sender_name,
+                'number': instance.number,
+                'email': instance.email,
+                'size': instance.size,
+                'product_time': instance.product_time,
+                'comment': instance.comment,
+            }
+        )
+
         send_mail(
             "Заказ",
-            message,
+            None,
             settings.EMAIL_HOST_USER,
-            [instance.email],
+            ['roma_chepiga@mail.ru'],
             fail_silently=False,
+            html_message=html_messsage
         )

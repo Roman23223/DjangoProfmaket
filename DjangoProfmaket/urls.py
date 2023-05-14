@@ -3,11 +3,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from api.views import WorkList, ImageList, AddressList, EmailList, TelephoneList, ApplicationCreate
+from api.views import WorkList, WorkOne, ImageList, AddressList, EmailList, TelephoneList, ApplicationCreate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/work', WorkList.as_view()),
+    path('api/work/<int:pk>/', WorkOne.as_view()),
     path('api/image', ImageList.as_view()),
     path('api/address', AddressList.as_view()),
     path('api/email', EmailList.as_view()),

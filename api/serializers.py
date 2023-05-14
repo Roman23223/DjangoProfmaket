@@ -3,15 +3,18 @@ from rest_framework import serializers
 from .models import Work, Image, Address, Email, Telephone_number, Application
 
 
-class WorkSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Work
-        fields = "__all__"
-
 
 class ImageSerializers(serializers.ModelSerializer):
     class Meta:
         model = Image
+        fields = "__all__"
+
+
+class WorkSerializers(serializers.ModelSerializer):
+    images = ImageSerializers(many=True)
+
+    class Meta:
+        model = Work
         fields = "__all__"
 
 

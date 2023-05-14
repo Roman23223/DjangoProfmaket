@@ -2,11 +2,16 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import Work, Image, Address, Email, Telephone_number, Application
-from .serializers import WorkSerializers, ImageSerializers, AddressSerializers, EmailSerializers, TelephoneSerializers, \
-    ApplicationSerializers
+from .serializers import WorkSerializers, ImageSerializers, AddressSerializers, EmailSerializers, TelephoneSerializers, ApplicationSerializers
 
 
 class WorkList(generics.ListAPIView):
+    queryset = Work.objects.all()
+    serializer_class = WorkSerializers
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+
+class WorkOne(generics.RetrieveAPIView):
     queryset = Work.objects.all()
     serializer_class = WorkSerializers
     permission_classes = (IsAuthenticatedOrReadOnly,)
