@@ -11,8 +11,8 @@ from django.dispatch import receiver
 class Work(models.Model):
     title = models.CharField("Наименование", max_length=255)
     content = models.TextField("Описание", max_length=1000)
-    time_create = models.DateTimeField(auto_now_add=True)
-    time_update = models.DateTimeField(auto_now=True)
+    time_create = models.DateTimeField("Дата создания", auto_now_add=True, null=True, blank=True)
+    time_update = models.DateTimeField("Дата обновления", auto_now=True, null=True, blank=True)
     is_published = models.BooleanField("Публиковать", default=True)
 
     def __str__(self):
@@ -84,6 +84,7 @@ class Application(models.Model):
     number = models.CharField('Номер телефона', max_length=12)
     email = models.EmailField('Электронная почта', max_length=255)
     comment = models.TextField('Коментарий', max_length=1000, null=True, blank=True)
+    time_create = models.DateTimeField("Отправлено", auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.email
