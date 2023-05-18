@@ -13,6 +13,12 @@ class WorkAdmin(admin.ModelAdmin):
 class ApplicationAdmin(admin.ModelAdmin):
     readonly_fields = ['size', 'product_time', 'sender_name', 'number', 'email', 'comment', 'time_create']
 
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
 
 admin.site.register(Work, WorkAdmin)
 admin.site.register(Image, ImageAdmin)
