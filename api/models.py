@@ -55,7 +55,7 @@ class Address(models.Model):
 
 
 class Telephone_number(models.Model):
-    number = models.CharField('Номер для связи', max_length=12)
+    number = models.CharField('Номер для связи', max_length=16, help_text='В формате +7(000)000-00-00')
 
     def __str__(self):
         return self.number
@@ -81,7 +81,7 @@ class Application(models.Model):
     size = models.CharField('Размер макета', max_length=255)
     product_time = models.CharField('Время изготовления', max_length=255)
     sender_name = models.CharField('Имя заказчика', max_length=20)
-    number = models.CharField('Номер телефона', max_length=12)
+    number = models.CharField('Номер телефона', max_length=16)
     email = models.EmailField('Электронная почта', max_length=255)
     comment = models.TextField('Коментарий', max_length=1000, null=True, blank=True)
     time_create = models.DateTimeField("Отправлено", auto_now_add=True, null=True, blank=True)
