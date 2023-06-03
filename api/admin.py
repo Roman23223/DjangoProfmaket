@@ -4,13 +4,16 @@ from api.models import Work, Image, Address, Email, Telephone_number, Applicatio
 
 
 class ImageAdmin(admin.ModelAdmin):
+    search_fields =['title']
     readonly_fields = ['img_preview']
 
 
 class WorkAdmin(admin.ModelAdmin):
+    search_fields =['title']
     readonly_fields = ['time_create', 'time_update']
 
 class ApplicationAdmin(admin.ModelAdmin):
+    search_fields =['email']
     readonly_fields = ['size', 'product_time', 'sender_name', 'number', 'email', 'comment', 'time_create']
 
     def has_add_permission(self, request):
