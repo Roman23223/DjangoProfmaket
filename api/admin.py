@@ -1,6 +1,6 @@
 from django.contrib import admin
-
 from api.models import Work, Image, Address, Email, Telephone_number, Application
+from django.utils.html import format_html
 
 
 class ImageAdmin(admin.ModelAdmin):
@@ -10,9 +10,16 @@ class ImageAdmin(admin.ModelAdmin):
 
 
 class WorkAdmin(admin.ModelAdmin):
-    list_display = ['title']
+    list_display = ['title', 'get_link_to_work']
     search_fields =['title']
     readonly_fields = ['time_create', 'time_update']
+
+
+    def get_link_to_work(self, obj):
+        return format_html("<a href='http://127.0.0.1:8000/api/work/{id}' target='_blank'>Перейти</a>", id = obj.id)
+    
+    get_link_to_work.short_description = 'Ссылка на страницу'
+
 
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = ['email', 'sender_name', 'time_create']

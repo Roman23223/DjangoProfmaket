@@ -28,8 +28,6 @@ class Image(models.Model):
     image = models.ImageField("Ссылка на изображение", upload_to='images', null=True)
     work = models.ForeignKey(Work, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Работа', related_name='images')
 
-    def short_description(self):
-        return truncatechars(self.description, 20)
 
     def img_preview(self):  # new
         return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
