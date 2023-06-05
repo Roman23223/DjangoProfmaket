@@ -29,7 +29,7 @@ class Image(models.Model):
     work = models.ForeignKey(Work, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Работа', related_name='images')
 
 
-    def img_preview(self):  # new
+    def img_preview(self):
         return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
     img_preview.short_description = 'Изображение'
 

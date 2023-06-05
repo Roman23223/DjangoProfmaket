@@ -12,13 +12,17 @@ class ImageAdmin(admin.ModelAdmin):
 class WorkAdmin(admin.ModelAdmin):
     list_display = ['title', 'get_link_to_work']
     search_fields =['title']
-    readonly_fields = ['time_create', 'time_update']
+    readonly_fields = ['time_create', 'time_update', 'get_link_to_work']
 
 
     def get_link_to_work(self, obj):
         return format_html("<a href='http://127.0.0.1:8000/api/work/{id}' target='_blank'>Перейти</a>", id = obj.id)
     
     get_link_to_work.short_description = 'Ссылка на страницу'
+
+
+class EmailAdmin(admin.ModelAdmin):
+    list_display = ['email', 'title']
 
 
 class ApplicationAdmin(admin.ModelAdmin):
@@ -37,7 +41,7 @@ class ApplicationAdmin(admin.ModelAdmin):
 admin.site.register(Work, WorkAdmin)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Address)
-admin.site.register(Email)
+admin.site.register(Email, EmailAdmin)
 admin.site.register(Telephone_number)
 admin.site.register(Application, ApplicationAdmin)
 
