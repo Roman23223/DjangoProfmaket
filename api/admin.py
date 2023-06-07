@@ -5,7 +5,7 @@ from django.utils.html import format_html
 
 class ImageAdmin(admin.ModelAdmin):
     list_display = ['title', 'image', 'work']
-    search_fields = ['title']
+    search_fields = ['work__title']
     readonly_fields = ['img_preview']
 
 
