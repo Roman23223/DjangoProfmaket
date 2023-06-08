@@ -4,16 +4,23 @@ from django.utils.html import format_html
 
 
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'image', 'work']
+    list_display = ['title', 'image', 'work', 'img_preview_list']
     search_fields = ['work__title']
     readonly_fields = ['img_preview']
 
+class ImageInline(admin.TabularInline):
+    extra = 1
+    list_display = ['title', 'img_preview_list']
+    model = Image
 
 class WorkAdmin(admin.ModelAdmin):
     list_display = ['title', 'get_link_to_work']
-    search_fields =['title']
+    search_fields = ['title']
     readonly_fields = ['time_create', 'time_update', 'get_link_to_work']
 
+    inlines = [
+        ImageInline,
+    ]
 
     def get_link_to_work(self, obj):
         return format_html("<a href='http://127.0.0.1:8000/api/work/{id}' target='_blank'>Перейти</a>", id = obj.id)

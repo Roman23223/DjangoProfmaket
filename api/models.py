@@ -33,6 +33,10 @@ class Image(models.Model):
         return mark_safe(f'<img src = "{self.image.url}" width = "300"/>')
     img_preview.short_description = 'Изображение'
 
+    def img_preview_list(self):
+        return mark_safe(f'<img src = "{self.image.url}" width = "100"/>')
+    img_preview_list.short_description = 'Изображение'
+
     def __str__(self):
         return self.title
 
