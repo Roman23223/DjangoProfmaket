@@ -51,4 +51,3 @@ admin.site.register(Address)
 admin.site.register(Email, EmailAdmin)
 admin.site.register(Telephone_number)
 admin.site.register(Application, ApplicationAdmin)
-
