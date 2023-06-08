@@ -9,9 +9,10 @@ class ImageAdmin(admin.ModelAdmin):
     readonly_fields = ['img_preview']
 
 class ImageInline(admin.TabularInline):
-    extra = 1
-    list_display = ['title', 'img_preview_list']
+    extra = 0
     model = Image
+    fields = ['title', 'image', 'img_preview_list']
+    readonly_fields = ['img_preview_list']
 
 class WorkAdmin(admin.ModelAdmin):
     list_display = ['title', 'get_link_to_work']
