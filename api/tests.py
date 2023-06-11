@@ -1,5 +1,8 @@
 from rest_framework import status
-from rest_framework.test import APITestCase, APISimpleTestCase
+from rest_framework.test import APITestCase
+from django.core import mail
+from django.conf import settings
+from django.template import loader
 from .models import Work, Image, Address, Email, Telephone_number, Application
 
 
@@ -82,3 +85,17 @@ class ViewsTest(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+class sendMailTest(APITestCase):
+
+    def test_send_email(self):
+        mail.send_mail(
+            'Title message', 
+            'Body message',
+            settings.EMAIL_HOST_USER, 
+            ['roma_chepiga@mail.ru'],
+            fail_silently=False,
+        )
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'Title message')
+        self.assertEqual(mail.outbox[0].body, 'Body message')
