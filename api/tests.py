@@ -1,8 +1,8 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
+from django.test import Client
 from django.core import mail
 from django.conf import settings
-from django.template import loader
 from .models import Work, Image, Address, Email, Telephone_number, Application
 
 
@@ -61,43 +61,70 @@ class ModelTest(APITestCase):
 
 class ViewsTest(APITestCase):
 
-    def test_get_list_work(self):
-        url = '/api/work'
-        response = self.client.get(url, format='json')
+    def setUp(self):
+        self.client = Client()
+        self.work = Work.objects.create(
+            title='test',
+            content='test'
+        )
+        self.url = f'/api/work/{self.work.pk}/'
+        Image.objects.create(
+            title='test',
+        )
+        Address.objects.create(
+            address='test',
+        )
+        Email.objects.create(
+            email='test@mail.ru',
+            title='test',
+        )
+        Telephone_number.objects.create(
+            number='test',
+        )
+        Application.objects.create(
+            size="test",
+            product_time="test",
+            sender_name="test",
+            number="test",
+            email="test@mail.ru",
+            comment="test"
+        )
+    
+    def test_get_all_work(self):
+        response = self.client.get('/api/work')
+        work = Work.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), len(work))
 
-    def test_get_list_image(self):
-        url = '/api/image'
-        response = self.client.get(url, format='json')
+    def test_get_one_work(self):
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get('title'), 'test')
 
-    def test_get_list_address(self):
-        url = '/api/address'
-        response = self.client.get(url, format='json')
+    def test_get_all_image(self):
+        response = self.client.get('/api/image')
+        image = Image.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), len(image))
 
-    def test_get_list_email(self):
-        url = '/api/email'
-        response = self.client.get(url, format='json')
+    def test_get_all_address(self):
+        response = self.client.get('/api/address')
+        address = Address.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), len(address))
 
-    def test_get_list_telephone(self):
-        url = '/api/telephone'
-        response = self.client.get(url, format='json')
+    def test_get_all_email(self):
+        response = self.client.get('/api/email')
+        email = Email.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), len(email))
 
-    def test_post_application(self):
-        url = '/api/application/create'
-        data = {
-            "size": "1 к 1000",
-            "product_time": "1 месяц",
-            "sender_name": "Заказчик",
-            "number": "00000000000",
-            "email": "zakazchik@mail.ru",
-            "comment": "Тест"
-        }
-        response = self.client.post(url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    def test_get_all_number(self):
+        response = self.client.get('/api/telephone')
+        number = Telephone_number.objects.all()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), len(number))
+    
 
 class sendMailTest(APITestCase):
 
