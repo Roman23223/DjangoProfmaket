@@ -81,14 +81,6 @@ class ViewsTest(APITestCase):
         Telephone_number.objects.create(
             number='test',
         )
-        Application.objects.create(
-            size="test",
-            product_time="test",
-            sender_name="test",
-            number="test",
-            email="test@mail.ru",
-            comment="test"
-        )
     
     def test_get_all_work(self):
         response = self.client.get('/api/work')
@@ -124,6 +116,30 @@ class ViewsTest(APITestCase):
         number = Telephone_number.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), len(number))
+
+    def test_create_application(self):
+        url = '/api/application/create'
+        
+        data = {
+            "size": "test",
+            "product_time": "test",
+            "sender_name": "test",
+            "number": "test",
+            "email": "test@mail.ru",
+            "comment": "test"
+        }
+        
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Application.objects.count(), 1)
+        
+        application = Application.objects.first()
+        self.assertEqual(application.size, 'test')
+        self.assertEqual(application.product_time, 'test')
+        self.assertEqual(application.sender_name, 'test')
+        self.assertEqual(application.number, 'test')
+        self.assertEqual(application.email, 'test@mail.ru')
+        self.assertEqual(application.comment, 'test')
     
 
 class sendMailTest(APITestCase):
