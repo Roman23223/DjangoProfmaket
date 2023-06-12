@@ -10,40 +10,53 @@ class ModelTest(APITestCase):
 
     def test_model_work(self):
         self.work = Work.objects.create(
-            title='тест',
-            content='тест',
+            title='test',
+            content='test',
         )
+        self.assertEqual(self.work.title, 'test')
+        self.assertEqual(self.work.content, 'test')
 
     def test_model_image(self):
-        self.work = Image.objects.create(
-            title='тест',
+        self.image = Image.objects.create(
+            title='test',
         )
+        self.assertEqual(self.image.title, 'test')
 
     def test_get_list_address(self):
-        self.work = Address.objects.create(
-            address='тест',
+        self.address = Address.objects.create(
+            address='test',
         )
+        self.assertEqual(self.address.address, 'test')
 
     def test_get_list_email(self):
-        self.work = Email.objects.create(
+        self.email = Email.objects.create(
             email='test@mail.ru',
-            title='тест',
+            title='test',
         )
+        self.assertEqual(self.email.email, 'test@mail.ru')
+        self.assertEqual(self.email.title, 'test')
 
     def test_get_list_telephone(self):
-        self.work = Telephone_number.objects.create(
-            number='тест',
+        self.telephone_number = Telephone_number.objects.create(
+            number='test',
         )
+        self.assertEqual(self.telephone_number.number, 'test')
 
     def test_get_list_application(self):
-        self.work = Application.objects.create(
-            size="тест",
-            product_time="тест",
-            sender_name="тест",
-            number="тест",
+        self.application = Application.objects.create(
+            size="test",
+            product_time="test",
+            sender_name="test",
+            number="test",
             email="test@mail.ru",
-            comment="тест"
+            comment="test"
         )
+        self.assertEqual(self.application.size, 'test')
+        self.assertEqual(self.application.product_time, 'test')
+        self.assertEqual(self.application.sender_name, 'test')
+        self.assertEqual(self.application.number, 'test')
+        self.assertEqual(self.application.email, 'test@mail.ru')
+        self.assertEqual(self.application.comment, 'test')
 
 
 class ViewsTest(APITestCase):
