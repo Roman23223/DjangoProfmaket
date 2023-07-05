@@ -10,6 +10,13 @@ class WorkList(generics.ListAPIView):
     serializer_class = WorkSerializers
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
+    def get_queryset(self):
+        queryset = Work.objects.all()
+        title = self.request.query_params.get('title', None)
+        if title is not None:
+            queryset = queryset.filter(title__icontains=title)
+        return queryset
+
 
 class WorkOne(generics.RetrieveAPIView):
     queryset = Work.objects.all()
