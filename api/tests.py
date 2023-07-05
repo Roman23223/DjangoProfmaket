@@ -83,7 +83,7 @@ class ViewsTest(APITestCase):
         )
     
     def test_get_all_work(self):
-        response = self.client.get('/api/work')
+        response = self.client.get('/api/work/')
         work = Work.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), len(work))
@@ -94,31 +94,31 @@ class ViewsTest(APITestCase):
         self.assertEqual(response.data.get('title'), 'test')
 
     def test_get_all_image(self):
-        response = self.client.get('/api/image')
+        response = self.client.get('/api/image/')
         image = Image.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), len(image))
 
     def test_get_all_address(self):
-        response = self.client.get('/api/address')
+        response = self.client.get('/api/address/')
         address = Address.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), len(address))
 
     def test_get_all_email(self):
-        response = self.client.get('/api/email')
+        response = self.client.get('/api/email/')
         email = Email.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), len(email))
 
     def test_get_all_number(self):
-        response = self.client.get('/api/telephone')
+        response = self.client.get('/api/telephone/')
         number = Telephone_number.objects.all()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), len(number))
 
     def test_create_application(self):
-        url = '/api/application/create'
+        url = '/api/application/create/'
         
         data = {
             "size": "test",
